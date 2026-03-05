@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- VISTA TREE (tabla general de facturas) -->
+    <record id="view_factura_tree" model="ir.ui.view">
+        <field name="name">facturas.factura.tree</field>
+        <field name="model">facturas.factura</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- VISTA FORM (formulario de factura) -->
+    <record id="view_factura_form" model="ir.ui.view">
+        <field name="name">facturas.factura.form</field>
+        <field name="model">facturas.factura</field>
+        <field name="arch" type="xml">
+            <form string="Factura">
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="date"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Líneas de Factura">
+                            <field name="linea_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACCIÓN -->
+    <record id="action_facturas" model="ir.actions.act_window">
+        <field name="name">Facturas</field>
+        <field name="res_model">facturas.factura</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- MENÚ PRINCIPAL -->
+    <menuitem id="menu_facturas_root" name="Facturación"/>
+
+    <!-- SUBMENÚ -->
+    <menuitem id="menu_facturas"
+              name="Facturas"
+              parent="menu_facturas_root"
+              action="action_facturas"/>
+
+</odoo>
